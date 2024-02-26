@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/header.jsx';
 import About from '../components/about.jsx';
-import Skills from '../components/skills.jsx';
+import Experience from '../components/experience.jsx';
 import Projects from '../components/projects.jsx';
 
 const Home = () => {
@@ -9,7 +9,7 @@ const Home = () => {
     <div>
       <Header />
       <About />
-      <Skills />
+      <Experience />
       <Projects />
     </div>
   );
