@@ -31,6 +31,7 @@ const Skills = () => {
             <p>ExpressJS</p>
             <p>MySql</p>
             <p>Sequelize</p>
+            <p>NoSQL</p>
             <p>MongoDB</p>
             <p>Mongoose</p>
             <p>GraphQL</p>
