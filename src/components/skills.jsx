@@ -3,7 +3,7 @@ import React from 'react';
 const Skills = () => {
   return (
     <div id='skills' className='bg-base shadow-xl text-white rounded-lg font-sans p-6 w-5/6 mx-auto my-4'>
-      <div className='text-secondary text-3xl text-center font-bold mb-6'>Skills</div>
+      <div className='text-3xl text-secondary font-extrabold my-2'>Skills</div>
       <div className='flex justify-center space-x-16'>
         <div className='bg-gray-800 w-64 rounded-lg overflow-hidden'>
           <div className='bg-tertiary p-4 flex items-center justify-between'>
