@@ -34,7 +34,6 @@ const Projects = () => {
           }
         }));
 
-        // Sort by creation date from oldest to newest
         reposWithImages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
 
         setRepos(reposWithImages);
