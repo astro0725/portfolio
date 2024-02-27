@@ -57,7 +57,7 @@ const Experience = () => {
           {getIcon(category)}
           <h3 className='text-xl font-bold mt-2'>{category}</h3>
         </div>
-        <div id={`${category}-skill`} className='max-h-40 overflow-y-auto text-center' onScroll={handleScroll(category)}>
+        <div id={`${category}-skill`} className='max-h-40 overflow-y-auto text-center scrollbar-track scrollbar-thumb' onScroll={handleScroll(category)}>
           {skills.map(skill => <p key={skill} className='px-2 py-1'>{skill}</p>)}
         </div>
         {isScrollable && (
