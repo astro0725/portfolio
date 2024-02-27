@@ -629,6 +629,10 @@ video {
   display: grid;
 }
 
+.hidden {
+  display: none;
+}
+
 .h-20 {
   height: 5rem;
 }
@@ -639,6 +643,10 @@ video {
 
 .h-64 {
   height: 16rem;
+}
+
+.h-40 {
+  height: 10rem;
 }
 
 .max-h-40 {
@@ -663,6 +671,14 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.max-w-28 {
+  max-width: 7rem;
+}
+
+.max-w-md {
+  max-width: 28rem;
 }
 
 .flex-1 {

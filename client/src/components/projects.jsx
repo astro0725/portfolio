@@ -68,15 +68,19 @@ const Projects = () => {
       <div className="flex flex-wrap justify-center gap-4">
         {repos.map(repo => (
           <div key={repo.id} className="w-64 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg m-4">
-            <div className="p-4">
-              <h3 className="font-bold text-lg">{repo.name}</h3>
-              {repo.imageUrl && (
-                <img src={repo.imageUrl} alt={`${repo.name} screenshot`} className="my-2 max-h-40 w-full object-cover" />
-              )}
-              <p className="text-gray-300 text-sm">{repo.description}</p>
-              <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="text-indigo-500 hover:text-indigo-300">
-                View on GitHub
-              </a>
+            <div className="relative">
+              <figure className="overflow-hidden">
+                {repo.imageUrl && (
+                  <img src={repo.imageUrl} alt={`${repo.name} screenshot`} className="w-full h-40 object-cover" />
+                )}
+              </figure>
+              <div className="p-4">
+                <h3 className="font-bold text-lg">{repo.name}</h3>
+                <p className="text-gray-300 text-sm">{repo.description}</p>
+                <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="text-indigo-500 hover:text-indigo-300">
+                  View on GitHub
+                </a>
+              </div>
             </div>
           </div>
         ))}
