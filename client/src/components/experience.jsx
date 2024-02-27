@@ -6,7 +6,7 @@ const Experience = () => {
   const skills = {
     'Front End': ['HTML', 'CSS', 'SASS/SCSS', 'React', 'JavaScript', 'TypeScript', 'Redux', 'TailwindCSS'],
     'Back End': ['NodeJS', 'ExpressJS', 'MySQL', 'Sequelize', 'NoSQL', 'MongoDB', 'Mongoose', 'GraphQL'],
-    'Other': ['GitHub', 'Render', 'Heroku', 'Webpack', 'Apollo', 'Websocket', 'Firebase', 'AWS'],
+    'Other': ['GitHub', 'Render', 'Heroku', 'Netlify', 'Webpack', 'Apollo', 'Websocket', 'Firebase', 'AWS'],
   };
 
   const getIcon = (category) => {
@@ -29,7 +29,7 @@ const Experience = () => {
   };
 
   const renderSkillCard = (category, skills) => (
-    <div className='bg-gray-800 w-64 rounded-lg overflow-hidden text-center'>
+    <div className='bg-body w-64 rounded-lg overflow-hidden text-center'>
       <div className='bg-primary'>
         {getIcon(category)}
         <h3 className='text-xl font-bold mt-2'>{category}</h3>
