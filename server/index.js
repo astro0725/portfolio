@@ -27,6 +27,24 @@ app.get('/api/github/repos', async (req, res) => {
   }
 });
 
+app.get('/api/github/:repoName/readme', async (req, res) => {
+  const { repoName } = req.params;
+  try {
+    const response = await fetch(`https://api.github.com/repos/astro0725/${repoName}/readme`, {
+      headers: {
+        'Authorization': `token ${process.env.GITHUB_PAT}`,
+        'Accept': 'application/vnd.github+json',
+      },
+    });
+    if (!response.ok) throw new Error(`Failed to fetch README: ${response.statusText}`);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching README:', error);
+    res.status(500).send('Server error');
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

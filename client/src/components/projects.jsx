@@ -3,52 +3,57 @@ import React, { useState, useEffect } from 'react';
 const Projects = () => {
   const [repos, setRepos] = useState([]);
 
+  const fetchRepos = async () => {
+    try {
+      const response = await fetch('/api/github/repos');
+      if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
+      const data = await response.json();
+      return data.filter(repo => !['portfolio', 'student-portfolio-css', 'astro0725', 'spawn-point', 'PixelPals', 'prework-study-guide', 'horiseon-refactor-challenge'].includes(repo.name));
+    } catch (error) {
+      console.error('Error fetching repos:', error);
+    }
+  };
+
+  const fetchReadme = async (repoName) => {
+    try {
+      const response = await fetch(`/api/github/${repoName}/readme`, {
+        headers: { 'Accept': 'application/vnd.github+json' }
+      });
+      if (!response.ok) throw new Error(`Failed to fetch README: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching README:', error);
+    }
+  };
+
+  const transformImageUrl = (readmeContent, repoName) => {
+    const imageUrlMatch = readmeContent.match(/\!\[.*?\]\((.*?)\)/);
+    const imageUrl = imageUrlMatch ? imageUrlMatch[1] : null;
+    return imageUrl && !imageUrl.startsWith('http') ? 
+      `https://raw.githubusercontent.com/astro0725/${repoName}/main/${imageUrl}` : 
+      imageUrl;
+  };
+
   useEffect(() => {
-    // Define an async function inside the useEffect
-    const fetchRepos = async () => {
-      try {
-        const response = await fetch('/api/github/repos');
-        if (!response.ok) {
-          throw new Error(`Failed to fetch: ${response.statusText}`);
-        }
-        const data = await response.json();
+    const initializeRepos = async () => {
+      const filteredData = await fetchRepos();
+      if (!filteredData) return;
+      
+      const reposWithImages = await Promise.all(filteredData.map(async (repo) => {
+        const readmeData = await fetchReadme(repo.name);
+        if (!readmeData) return repo;
+        
+        const readmeContent = atob(readmeData.content);
+        const fullImageUrl = transformImageUrl(readmeContent, repo.name);
+        
+        return { ...repo, imageUrl: fullImageUrl };
+      }));
 
-        const reposToIgnore = ['portfolio', 'student-portfolio-css', 'astro0725', 'spawn-point', 'PixelPals', 'prework-study-guide', 'horiseon-refactor-challenge'];
-        let filteredData = data.filter(repo => !reposToIgnore.includes(repo.name));
-
-        const reposWithImages = await Promise.all(filteredData.map(async repo => {
-          try {
-            const readmeResponse = await fetch(`https://api.github.com/repos/astro0725/${repo.name}/readme`, {
-              headers: { 'Accept': 'application/vnd.github+json' }
-            });
-            const readmeData = await readmeResponse.json();
-            const readmeContent = atob(readmeData.content);
-            const imageUrlMatch = readmeContent.match(/\!\[.*?\]\((.*?)\)/);
-            const imageUrl = imageUrlMatch ? imageUrlMatch[1] : null;
-
-            const fullImageUrl = imageUrl && !imageUrl.startsWith('http') ? 
-              `https://raw.githubusercontent.com/astro0725/${repo.name}/main/${imageUrl}` : 
-              imageUrl;
-
-            return {
-              ...repo,
-              imageUrl: fullImageUrl,
-            };
-          } catch (error) {
-            console.error('Error fetching README:', error);
-            return { ...repo, imageUrl: null };
-          }
-        }));
-
-        reposWithImages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-
-        setRepos(reposWithImages);
-      } catch (error) {
-        console.error('Error fetching repos:', error);
-      }
+      reposWithImages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+      setRepos(reposWithImages);
     };
 
-    fetchRepos();
+    initializeRepos();
   }, []);
 
   return (

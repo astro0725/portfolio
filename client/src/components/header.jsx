@@ -2,9 +2,9 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <header className='bg-base flex items-center p-4 h-20 w-screen pointer-events-auto'>
+    <header className='bg-base flex items-center h-20 w-full pointer-events-auto'>
       <div className='container mx-auto flex items-center justify-between'>
-        <a href='/' className='text-xl font-bold text-highlight'>Full-Stack Developer</a>
+        <a href='/' className='text-3xl font-bold text-highlight'>Full-Stack Developer</a>
         <nav>
           <ul className='flex text-lg text-white cursor-pointer space-x-4'>
             <li><a href='#about-me' className='hover:text-highlight'>About</a></li>
