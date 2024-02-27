@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 
 const Experience = () => {
   const [activeTab, setActiveTab] = useState('skills');
+  const [isBottoms, setIsBottoms] = useState({
+    'Front End': false,
+    'Back End': false,
+    'Other': false,
+  });
 
   const skills = {
     'Front End': ['HTML', 'CSS', 'SASS/SCSS', 'React', 'JavaScript', 'TypeScript', 'Redux', 'TailwindCSS'],
@@ -28,15 +33,45 @@ const Experience = () => {
     return iconSrc ? <img src={iconSrc} className='mx-auto' alt={`${category} icon`} /> : null;
   };
 
-  const renderSkillCard = (category, skills) => (
-    <div className='bg-body w-64 rounded-lg overflow-hidden text-center'>
-      <div className='bg-primary'>
-        {getIcon(category)}
-        <h3 className='text-xl font-bold mt-2'>{category}</h3>
+  const handleScroll = (category) => (e) => {
+    const element = e.target;
+    const isBottom = element.scrollHeight - element.scrollTop === element.clientHeight ||
+      element.scrollHeight - element.scrollTop <= element.clientHeight + 1; 
+    setIsBottoms(prevIsBottoms => ({ ...prevIsBottoms, [category]: isBottom }));
+  };
+
+  const scrollToTop = (category) => {
+    const element = document.getElementById(`${category}-skill`);
+    if (element) {
+      element.scrollTo({ top: 0, behavior: 'smooth' });
+      setIsBottoms(prevIsBottoms => ({ ...prevIsBottoms, [category]: false }));
+    }
+  };  
+
+  const renderSkillCard = (category, skills) => {
+    const isScrollable = skills.length > 5;
+  
+    return (
+      <div className='bg-body rounded-lg w-64'>
+        <div className='bg-primary rounded-t-lg text-center'>
+          {getIcon(category)}
+          <h3 className='text-xl font-bold mt-2'>{category}</h3>
+        </div>
+        <div id={`${category}-skill`} className='max-h-40 overflow-y-auto text-center' onScroll={handleScroll(category)}>
+          {skills.map(skill => <p key={skill} className='px-2 py-1'>{skill}</p>)}
+        </div>
+        {isScrollable && (
+            <div className='text-sm text-center text-highlight'>
+              {isBottoms[category] ? (
+                <p onClick={() => scrollToTop(category)} className='cursor-pointer'>Back to top ↑</p>
+              ) : (
+                <p>Scroll to see more...</p>
+              )}
+            </div>
+          )}
       </div>
-      {skills.map(skill => <p key={skill}>{skill}</p>)}
-    </div>
-  );
+    );
+  };
 
   const renderSkills = () => (
     <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
