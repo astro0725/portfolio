@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 const Projects = () => {
-  const [repos, setRepos] = useState([]);
+  const personalRepoNames = ['GamifyLife', 'pixel-pals-2.0']; 
+  const groupRepoNames = ['bookworm', '3600']; 
+
+  const [repos, setRepos] = useState({ personal: [], group: [], other: [] });
 
   const fetchRepos = async () => {
     try {
@@ -55,18 +58,41 @@ const Projects = () => {
 
         return { ...repo, imageUrl: fullImageUrl };
       }));
+
+      // Categorize repos before setting the state
+      let personalRepos = [];
+      let groupRepos = [];
+      let otherRepos = [];
+
+      // Sort the reposWithImages if necessary, before categorization
       reposWithImages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-      setRepos(reposWithImages);
+
+      // Categorize the repositories
+      for (const repo of reposWithImages) {
+        if (personalRepoNames.includes(repo.name)) {
+          personalRepos.push(repo);
+        } else if (groupRepoNames.includes(repo.name)) {
+          groupRepos.push(repo);
+        } else {
+          otherRepos.push(repo);
+        }
+      }
+
+      // Set the state with categorized repos
+      setRepos({
+        personal: personalRepos,
+        group: groupRepos,
+        other: otherRepos,
+      });
     };
 
     initializeRepos();
   }, []);
 
-  return (
-    <div id='projects' className='bg-base shadow-xl text-white rounded-lg font-sans p-6 w-5/6 mx-auto my-4'>
-      <h2 className="text-3xl text-secondary font-extrabold my-2">Projects</h2>
+  const renderProject = (projectsArray) => {
+    return (
       <div className="flex flex-wrap justify-center gap-4">
-        {repos.map(repo => (
+        {projectsArray.map(repo => (
           <div key={repo.id} className="w-64 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg m-4">
             <div className="relative">
               <figure className="overflow-hidden">
@@ -85,6 +111,26 @@ const Projects = () => {
           </div>
         ))}
       </div>
+    );
+  }
+
+  return (
+    <div id='projects' className='bg-base shadow-xl text-white rounded-lg font-sans p-6 w-5/6 mx-auto my-4'>
+      <h2 className="text-3xl text-secondary font-extrabold my-2">Projects</h2>
+      <div className="flex flex-wrap -mx-2">
+      <div className="w-full md:w-1/3 px-2">
+        <h2 className="text-xl font-bold mb-4">Personal</h2>
+        {renderProject(repos.personal)}
+      </div>
+      <div className="w-full md:w-1/3 px-2">
+        <h2 className="text-xl font-bold mb-4">Group</h2>
+        {renderProject(repos.group)}
+      </div>
+      <div className="w-full md:w-1/3 px-2">
+        <h2 className="text-xl font-bold mb-4">Other</h2>
+        {renderProject(repos.other)}
+      </div>
+    </div>
     </div>
   );
 };
