@@ -19,36 +19,42 @@ const Projects = () => {
       const response = await fetch(`/api/github/${repoName}/readme`, {
         headers: { 'Accept': 'application/vnd.github+json' }
       });
-      if (!response.ok) throw new Error(`Failed to fetch README: ${response.statusText}`);
+      if (!response.ok) {
+        console.error(`Failed to fetch README: ${response.statusText}`);
+        return {};
+      }
       return await response.json();
     } catch (error) {
       console.error('Error fetching README:', error);
+      return {};
     }
   };
 
   const transformImageUrl = (readmeContent, repoName) => {
     const imageUrlMatch = readmeContent.match(/\!\[.*?\]\((.*?)\)/);
     const imageUrl = imageUrlMatch ? imageUrlMatch[1] : null;
-    return imageUrl && !imageUrl.startsWith('http') ? 
-      `https://raw.githubusercontent.com/astro0725/${repoName}/main/${imageUrl}` : 
-      imageUrl;
+    return imageUrl && !imageUrl.startsWith('http') 
+      ? `https://raw.githubusercontent.com/astro0725/${repoName}/main/${imageUrl}` 
+      : '/placeholder.png'; 
   };
 
   useEffect(() => {
     const initializeRepos = async () => {
       const filteredData = await fetchRepos();
       if (!filteredData) return;
-      
+
       const reposWithImages = await Promise.all(filteredData.map(async (repo) => {
         const readmeData = await fetchReadme(repo.name);
-        if (!readmeData) return repo;
-        
+
+        if (Object.keys(readmeData).length === 0) {
+          return { ...repo, imageUrl: '/placeholder.png' };
+        }
+
         const readmeContent = atob(readmeData.content);
         const fullImageUrl = transformImageUrl(readmeContent, repo.name);
-        
+
         return { ...repo, imageUrl: fullImageUrl };
       }));
-
       reposWithImages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
       setRepos(reposWithImages);
     };
