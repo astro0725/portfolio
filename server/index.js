@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const fetch = require('node-fetch');
+const cors = require('cors');
 
-const app = express();
 const PORT = process.env.PORT || 3000;
+const app = express();
+app.use(cors());
 
 app.get('/api/github/repos', async (req, res) => {
   try {
@@ -14,7 +16,8 @@ app.get('/api/github/repos', async (req, res) => {
       },
     });
     if (!response.ok) {
-      throw new Error('Failed to fetch from GitHub API');
+      console.error('Response not OK:', await response.text());
+      throw new Error(`Failed to fetch: ${response.statusText}`);
     }
     const data = await response.json();
     res.json(data);
