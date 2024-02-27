@@ -4,46 +4,51 @@ const Projects = () => {
   const [repos, setRepos] = useState([]);
 
   useEffect(() => {
-    fetch('/api/github/repos')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Failed to fetch: ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      const reposToIgnore = ['portfolio', 'student-portfolio-css', 'astro0725', 'spawn-point', 'PixelPals', 'prework-study-guide', 'horiseon-refactor-challenge'];
-      let filteredData = data.filter(repo => !reposToIgnore.includes(repo.name));
-
-      const reposWithImages = await Promise.all(filteredData.map(async repo => {
-        try {
-          const readmeResponse = await fetch(`https://api.github.com/repos/astro0725/${repo.name}/readme`, {
-            headers: { 'Accept': 'application/vnd.github+json' }
-          });
-          const readmeData = await readmeResponse.json();
-          const readmeContent = atob(readmeData.content);
-          const imageUrlMatch = readmeContent.match(/\!\[.*?\]\((.*?)\)/);
-          const imageUrl = imageUrlMatch ? imageUrlMatch[1] : null;
-
-          const fullImageUrl = imageUrl && !imageUrl.startsWith('http') ? 
-            `https://raw.githubusercontent.com/astro0725/${repo.name}/main/${imageUrl}` : 
-            imageUrl;
-
-          return {
-            ...repo,
-            imageUrl: fullImageUrl,
-          };
-        } catch (error) {
-          console.error('Error fetching README:', error);
-          return { ...repo, imageUrl: null };
+    // Define an async function inside the useEffect
+    const fetchRepos = async () => {
+      try {
+        const response = await fetch('/api/github/repos');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.statusText}`);
         }
-      }));
+        const data = await response.json();
 
-      reposWithImages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+        const reposToIgnore = ['portfolio', 'student-portfolio-css', 'astro0725', 'spawn-point', 'PixelPals', 'prework-study-guide', 'horiseon-refactor-challenge'];
+        let filteredData = data.filter(repo => !reposToIgnore.includes(repo.name));
 
-      setRepos(reposWithImages);
-    })
-    .catch(error => console.error(error));
+        const reposWithImages = await Promise.all(filteredData.map(async repo => {
+          try {
+            const readmeResponse = await fetch(`https://api.github.com/repos/astro0725/${repo.name}/readme`, {
+              headers: { 'Accept': 'application/vnd.github+json' }
+            });
+            const readmeData = await readmeResponse.json();
+            const readmeContent = atob(readmeData.content);
+            const imageUrlMatch = readmeContent.match(/\!\[.*?\]\((.*?)\)/);
+            const imageUrl = imageUrlMatch ? imageUrlMatch[1] : null;
+
+            const fullImageUrl = imageUrl && !imageUrl.startsWith('http') ? 
+              `https://raw.githubusercontent.com/astro0725/${repo.name}/main/${imageUrl}` : 
+              imageUrl;
+
+            return {
+              ...repo,
+              imageUrl: fullImageUrl,
+            };
+          } catch (error) {
+            console.error('Error fetching README:', error);
+            return { ...repo, imageUrl: null };
+          }
+        }));
+
+        reposWithImages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+
+        setRepos(reposWithImages);
+      } catch (error) {
+        console.error('Error fetching repos:', error);
+      }
+    };
+
+    fetchRepos();
   }, []);
 
   return (
