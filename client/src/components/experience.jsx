@@ -7,6 +7,7 @@ const Experience = () => {
     'Back End': false,
     'Other': false,
   });
+  const [resumeHover, setResumeHover] = useState(false);
 
   const skills = {
     'Front End': ['HTML', 'CSS', 'SASS/SCSS', 'React', 'JavaScript', 'TypeScript', 'Redux', 'TailwindCSS'],
@@ -79,19 +80,21 @@ const Experience = () => {
     </div>
   );
 
+  const renderCertification = () => (
+    <div className='flex flex-col items-center justify-center p-10'>
+      <div className='flex items-center justify-center'>
+        <img src='/coming-soon.svg' alt='Clock Icon' className='w-64 h-64' />
+      </div>
+      <p className='text-lg font-semibold mt-4'>COMING SOON</p>
+    </div>
+  );
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'skills':
         return renderSkills();
       case 'certification':
-        return (
-          <div className='flex flex-col items-center justify-center p-10'>
-            <div className='flex items-center justify-center'>
-              <img src='/coming-soon.svg' alt='Clock Icon' className='w-64 h-64' />
-            </div>
-            <p className='text-lg font-semibold mt-4'>COMING SOON</p>
-          </div>
-        );
+        return renderCertification();
       default:
         return <div>Tab not found</div>;
     }
@@ -117,6 +120,14 @@ const Experience = () => {
         >
           Certification
         </button>
+        <a
+          href='/resume.pdf' 
+          onMouseEnter={() => setResumeHover(true)}
+          onMouseLeave={() => setResumeHover(false)}
+          className={'px-6 py-2 text-sm font-bold uppercase rounded transition duration-300 ease-in-out bg-tertiary hover:bg-primary'}
+        >
+          {resumeHover ? 'Click to View' : 'Resume'}
+        </a>
       </div>
       <div className='flex justify-center space-x-16'>
         {renderTabContent()}
