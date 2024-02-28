@@ -7,8 +7,11 @@ const About = () => {
         <div className='mb-4 md:mr-4 flex-1'>
           <div className='text-sm uppercase tracking-widest font-bold text-highlight'>Hi I’m</div>
           <div className='text-3xl text-secondary font-extrabold my-2'>Angelica Strong</div>
-          <p className='text-white'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <p className='text-tertiary text-xs'>
+            Full-stack developer with a solid foundation in programming languages with a relentless drive to learn and grow. 
+          </p>
+          <p className='text-white pt-3'>
+            I am a passionate and creative developer with a strong background in team collaboration and on-the-fly problem solving. I have a strong passion for developing seamless user experiences and have keen eye for observing problems. While my knowledge is solely built around the fundamentals, I am always eager to learn new technologies and further advance my skills.
           </p>
         </div>
       <div className='self-start md:self-center bg-white text-black w-24 h-24 flex items-center justify-center'>
