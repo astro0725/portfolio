@@ -7,10 +7,12 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
 
-app.get('/api/github/repos', async (req, res) => {
-  const { user, repoName } = req.params;
+app.get('/api/github/:user/repos', async (req, res) => {
+  const { user } = req.params;
+  const specificRepos = req.query.repos ? req.query.repos.split(',') : [];
+
   try {
-    const response = await fetch(`https://api.github.com/repos/${user}/${repoName}`, {
+    const response = await fetch(`https://api.github.com/users/${user}/repos`, {
       headers: {
         'Authorization': `token ${process.env.GITHUB_PAT}`,
         'Accept': 'application/vnd.github.v3+json',
@@ -20,7 +22,17 @@ app.get('/api/github/repos', async (req, res) => {
       console.error('Response not OK:', await response.text());
       throw new Error(`Failed to fetch: ${response.statusText}`);
     }
-    const data = await response.json();
+    let data = await response.json();
+
+    if (specificRepos.length > 0) {
+      data = data.filter(repo => specificRepos.includes(repo.name));
+    } else {
+      if (user === 'astro0725') {
+        const excludedRepos = ['will-you','portfolio', 'student-portfolio-css', 'astro0725', 'spawn-point', 'PixelPals', 'prework-study-guide', 'horiseon-refactor-challenge'];
+        data = data.filter(repo => !excludedRepos.includes(repo.name));
+      }
+    }
+
     res.json(data);
   } catch (error) {
     console.error(error);
@@ -31,7 +43,7 @@ app.get('/api/github/repos', async (req, res) => {
 app.get('/api/github/:repoName/readme', async (req, res) => {
   const { user, repoName } = req.params;
   try {
-    const response = await fetch(`https://api.github.com/repos/${user}/${repoName}/readme`, {
+    const response = await fetch(`https://api.github.com/users/${user}/repos/${repoName}/readme`, {
       headers: {
         'Authorization': `token ${process.env.GITHUB_PAT}`,
         'Accept': 'application/vnd.github+json',

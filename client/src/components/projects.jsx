@@ -3,17 +3,21 @@ import React, { useState, useEffect } from 'react';
 const Projects = () => {
   const [repos, setRepos] = useState({ personal: [], group: [], other: [] });
 
-  const personalRepoNames = ['GamifyLife', 'pixel-pals-2.0']; 
-  const groupRepoNames = ['bookworm', '3600']; 
+  const personalRepoNames = ['GamifyLife', 'pixel-pals-2.0'];
+  const groupRepoNames = { 'stevendreed': ['3600'], 'SnapperGee': ['bookworm'] };
 
-  const fetchRepos = async () => {
+  const fetchRepos = async (user, specificRepos = []) => {
     try {
-      const response = await fetch('/api/github/repos');
+      let url = `/api/github/${user}/repos`;
+      if (specificRepos.length > 0) {
+        url += `?repos=${specificRepos.join(',')}`;
+      }
+      const response = await fetch(url);
       if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
-      const data = await response.json();
-      return data.filter(repo => !['will-you','portfolio', 'student-portfolio-css', 'astro0725', 'spawn-point', 'PixelPals', 'prework-study-guide', 'horiseon-refactor-challenge'].includes(repo.name));
+      return await response.json();
     } catch (error) {
       console.error('Error fetching repos:', error);
+      return [];
     }
   };
 
@@ -33,22 +37,27 @@ const Projects = () => {
     }
   };
 
-  const transformImageUrl = (readmeContent, repoName) => {
+  const transformImageUrl = (readmeContent, user, repoName) => {
     const imageUrlMatch = readmeContent.match(/\!\[.*?\]\((.*?)\)/);
     const imageUrl = imageUrlMatch ? imageUrlMatch[1] : null;
     return imageUrl && !imageUrl.startsWith('http') 
-      ? `https://raw.githubusercontent.com/astro0725/${repoName}/main/${imageUrl}` 
+      ? `https://raw.githubusercontent.com/${user}/${repoName}/main/${imageUrl}` 
       : '/placeholder.png'; 
   };
 
   useEffect(() => {
     const initializeRepos = async () => {
-      const filteredData = await fetchRepos();
-      if (!filteredData) return;
+      const myRepos = await fetchRepos('astro0725');
 
-      const reposWithImages = await Promise.all(filteredData.map(async (repo) => {
-        const readmeData = await fetchReadme(repo.name);
+      const groupReposPromises = Object.entries(groupRepoNames).map(async ([user, repos]) => {
+        return Promise.all(repos.map(repo => fetchRepos(user, [repo])));
+      });
+      const groupReposResults = (await Promise.all(groupReposPromises)).flat(2); 
 
+      const allFetchedRepos = [...myRepos, ...groupReposResults];
+
+      const reposWithImages = await Promise.all(allFetchedRepos.map(async (repo) => {
+        const readmeData = await fetchReadme(repo.full_name);
         if (Object.keys(readmeData).length === 0) {
           return { ...repo, imageUrl: '/placeholder.png' };
         }
@@ -59,21 +68,18 @@ const Projects = () => {
         return { ...repo, imageUrl: fullImageUrl };
       }));
 
-      let personalRepos = [];
-      let groupRepos = [];
-      let otherRepos = [];
+      let personalRepos = [], groupRepos = [], otherRepos = [];
 
-      reposWithImages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-
-      for (const repo of reposWithImages) {
-        if (personalRepoNames.includes(repo.name)) {
+      reposWithImages.forEach(repo => {
+        const repoName = repo.name;
+        if (personalRepoNames.includes(repoName)) {
           personalRepos.push(repo);
-        } else if (groupRepoNames.includes(repo.name)) {
+        } else if (Object.values(groupRepoNames).flat().includes(repoName)) {
           groupRepos.push(repo);
         } else {
           otherRepos.push(repo);
         }
-      }
+      });
 
       setRepos({
         personal: personalRepos,
