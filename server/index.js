@@ -45,6 +45,23 @@ app.get('/api/github/:repoName/readme', async (req, res) => {
   }
 });
 
+app.get ('/api/github/groups', async (req, res) => {
+  const { user, repoName } = req.params;
+  try{
+    const response = await fetch (`https://api.github.com/repos/${user}/${repoName}`, {
+      headers: {
+        'Authorization': `token ${process.env.GITHUB_PAT}`,
+        'Accept': 'application/vnd.github+json',
+      },
+    });
+    if (!response.ok) throw new Error (`Error fetching ${user}, ${repoName} server side: ${response.statusText}`);
+    const data = await response.json();
+  } catch (err) {
+    console.error('Error fetching group data in serverside:', err);
+    res.status(500).send('Server side error: ' + err.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
