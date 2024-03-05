@@ -56,6 +56,7 @@ app.get ('/api/github/groups', async (req, res) => {
     });
     if (!response.ok) throw new Error (`Error fetching ${user}, ${repoName} server side: ${response.statusText}`);
     const data = await response.json();
+    res.json(data);
   } catch (err) {
     console.error('Error fetching group data in serverside:', err);
     res.status(500).send('Server side error: ' + err.message);
