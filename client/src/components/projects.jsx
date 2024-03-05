@@ -37,12 +37,15 @@ const Projects = () => {
     }
   };
 
-  const transformImageUrl = (readmeContent, user, repoName) => {
+  const transformImageUrl = (readmeContent, fullName) => {
     const imageUrlMatch = readmeContent.match(/\!\[.*?\]\((.*?)\)/);
     const imageUrl = imageUrlMatch ? imageUrlMatch[1] : null;
-    return imageUrl && !imageUrl.startsWith('http') 
-      ? `https://raw.githubusercontent.com/${user}/${repoName}/main/${imageUrl}` 
-      : '/placeholder.png'; 
+    if (imageUrl && !imageUrl.startsWith('http')) {
+      const [user, repoName] = fullName.split('/');
+      return `https://raw.githubusercontent.com/${user}/${repoName}/main/${imageUrl}`;
+    } else {
+      return imageUrl || '/placeholder.png';
+    }
   };
 
   useEffect(() => {
@@ -63,7 +66,7 @@ const Projects = () => {
         }
 
         const readmeContent = atob(readmeData.content);
-        const fullImageUrl = transformImageUrl(readmeContent, repo.name);
+        const fullImageUrl = transformImageUrl(readmeContent, repo.full_name);
 
         return { ...repo, imageUrl: fullImageUrl };
       }));
