@@ -8,8 +8,9 @@ const app = express();
 app.use(cors());
 
 app.get('/api/github/repos', async (req, res) => {
+  const { user, repoName } = req.params;
   try {
-    const response = await fetch('https://api.github.com/users/astro0725/repos', {
+    const response = await fetch(`https://api.github.com/repos/${user}/${repoName}`, {
       headers: {
         'Authorization': `token ${process.env.GITHUB_PAT}`,
         'Accept': 'application/vnd.github.v3+json',
@@ -28,9 +29,9 @@ app.get('/api/github/repos', async (req, res) => {
 });
 
 app.get('/api/github/:repoName/readme', async (req, res) => {
-  const { repoName } = req.params;
+  const { user, repoName } = req.params;
   try {
-    const response = await fetch(`https://api.github.com/repos/astro0725/${repoName}/readme`, {
+    const response = await fetch(`https://api.github.com/repos/${user}/${repoName}/readme`, {
       headers: {
         'Authorization': `token ${process.env.GITHUB_PAT}`,
         'Accept': 'application/vnd.github+json',
@@ -42,24 +43,6 @@ app.get('/api/github/:repoName/readme', async (req, res) => {
   } catch (error) {
     console.error('Error fetching README:', error);
     res.status(500).send('Server error');
-  }
-});
-
-app.get ('/api/github/groups', async (req, res) => {
-  const { user, repoName } = req.params;
-  try{
-    const response = await fetch (`https://api.github.com/repos/${user}/${repoName}`, {
-      headers: {
-        'Authorization': `token ${process.env.GITHUB_PAT}`,
-        'Accept': 'application/vnd.github+json',
-      },
-    });
-    if (!response.ok) throw new Error (`Error fetching ${user}, ${repoName} server side: ${response.statusText}`);
-    const data = await response.json();
-    res.json(data);
-  } catch (err) {
-    console.error('Error fetching group data in serverside:', err);
-    res.status(500).send('Server side error: ' + err.message);
   }
 });
 
