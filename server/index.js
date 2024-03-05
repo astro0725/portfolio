@@ -40,10 +40,10 @@ app.get('/api/github/:user/repos', async (req, res) => {
   }
 });
 
-app.get('/api/github/:repoName/readme', async (req, res) => {
+app.get('/api/github/:user/:repoName/readme', async (req, res) => {
   const { user, repoName } = req.params;
   try {
-    const response = await fetch(`https://api.github.com/users/${user}/repos/${repoName}/readme`, {
+    const response = await fetch(`https://api.github.com/repos/${user}/${repoName}/readme`, {
       headers: {
         'Authorization': `token ${process.env.GITHUB_PAT}`,
         'Accept': 'application/vnd.github+json',

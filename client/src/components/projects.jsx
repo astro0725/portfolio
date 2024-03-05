@@ -21,9 +21,10 @@ const Projects = () => {
     }
   };
 
-  const fetchReadme = async (repoName) => {
+  const fetchReadme = async (fullName) => {
     try {
-      const response = await fetch(`/api/github/${repoName}/readme`, {
+      const [user, repoName] = fullName.split('/');
+      const response = await fetch(`/api/github/${user}/${repoName}/readme`, {
         headers: { 'Accept': 'application/vnd.github+json' }
       });
       if (!response.ok) {
