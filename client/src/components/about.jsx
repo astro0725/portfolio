@@ -8,14 +8,14 @@ const About = () => {
           <div className='text-sm uppercase tracking-widest font-bold text-highlight'>Hi I’m</div>
           <div className='text-3xl text-secondary font-extrabold my-2'>Angelica Strong</div>
           <p className='text-tertiary text-xs'>
-            Full-stack developer with a solid foundation in programming languages with a relentless drive to learn and grow. 
+            Full-stack developer with a solid foundation in programming languages and a relentless drive to learn and grow. 
           </p>
           <p className='text-white pt-3'>
-            I am a passionate and creative developer with a strong background in team collaboration and on-the-fly problem solving. I have a strong passion for developing seamless user experiences and have keen eye for observing problems. While my knowledge is solely built around the fundamentals, I am always eager to learn new technologies and further advance my skills.
+            I am a creative developer with a strong background in team collaboration and on-the-fly problem solving. I have a strong passion for developing seamless user experiences and have keen eye for observing problems. While my knowledge is solely built around the fundamentals, I am always eager to learn new technologies and further advance my skills.
           </p>
         </div>
-      <div className='self-start md:self-center bg-white text-black w-24 h-24 flex items-center justify-center'>
-        IMG
+      <div className='self-start md:self-center w-40 h-40 flex items-center justify-center'>
+        <img className='rounded-full' src='/portrait.PNG'/>
       </div>
     </div>
   </div>
