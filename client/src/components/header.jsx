@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ContactModal from './contact';
 
 const Header = () => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
   return (
     <header className='bg-base flex items-center h-20 w-full pointer-events-auto'>
       <div className='container mx-auto flex items-center justify-between'>
@@ -13,9 +20,10 @@ const Header = () => {
           </ul>
         </nav>
         <div className='relative'>
-          <button className='px-4 py-2 border text-white bg-primary hover:bg-tertiary border-none cursor-pointer rounded-lg font-semibold'>Contact Me</button>
+          <button id='contact' onClick={openModal} className='px-4 py-2 border text-white bg-primary hover:bg-tertiary border-none cursor-pointer rounded-lg font-semibold'>Contact Me</button>
         </div>
       </div>
+      <ContactModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
     </header>
   );
 };
