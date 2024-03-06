@@ -16,6 +16,12 @@ const ContactModal = ({ modalIsOpen, setIsOpen }) => {
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       contentLabel='Contact Me Modal'
+      style={{
+        overlay: {
+          backgroundColor: 'rgba(0, 0, 0, 0.75)', // Directly using RGBA values
+          // For dynamic opacity or color, you might calculate or reference these values
+        },
+      }}
     >
       <div className='relative flex flex-col items-center justify-center max-w-lg gap-4 bg-base shadow-xl text-white rounded-lg font-sans p-6 w-5/6 mx-auto my-4'>
         <button onClick={closeModal} className='absolute top-2 right-2'>
