@@ -18,8 +18,7 @@ const ContactModal = ({ modalIsOpen, setIsOpen }) => {
       contentLabel='Contact Me Modal'
       style={{
         overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.75)', // Directly using RGBA values
-          // For dynamic opacity or color, you might calculate or reference these values
+          backgroundColor: 'rgba(0, 0, 0, 0.75)',
         },
       }}
     >
