@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+const base_url = import.meta.env.BASE_URL || 'http://localhost:3000';
+
 const Projects = () => {
   const [repos, setRepos] = useState({ personal: [], group: [], other: [] });
 
@@ -8,7 +10,7 @@ const Projects = () => {
 
   const fetchRepos = async (user, specificRepos = []) => {
     try {
-      let url = `/api/github/${user}/repos`;
+      let url = `${base_url}/api/github/${user}/repos`;
       if (specificRepos.length > 0) {
         url += `?repos=${specificRepos.join(',')}`;
       }
@@ -24,7 +26,7 @@ const Projects = () => {
   const fetchReadme = async (fullName) => {
     try {
       const [user, repoName] = fullName.split('/');
-      const response = await fetch(`/api/github/${user}/${repoName}/readme`, {
+      const response = await fetch(`${base_url}/api/github/${user}/${repoName}/readme`, {
         headers: { 'Accept': 'application/vnd.github+json' }
       });
       if (!response.ok) {
