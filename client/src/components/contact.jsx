@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-// Set this to your app's root element
 Modal.setAppElement('#root');
 
 const ContactModal = ({ modalIsOpen, setIsOpen }) => {
