@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server --ignore client",
     "install": "cd server && npm i && cd ../client && npm i",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm run build",
+    "net-build": "npm run install && npm run build"
   },
   "keywords": [],
   "author": "",
