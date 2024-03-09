@@ -5,7 +5,13 @@ const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+  origin: ['https://angelicastrong.netlify.app', 'http://localhost:3000'],
+  optionsSuccessStatus: 200 
+};
+
+app.use(cors(corsOptions));
 
 app.get('/api/github/:user/repos', async (req, res) => {
   const { user } = req.params;
