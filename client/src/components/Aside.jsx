@@ -17,7 +17,7 @@ const Aside = () => {
           <h1 className="text-white text-xl font-semibold mb-1" title="Angelica Strong">
             Angelica Strong
           </h1>
-          <p className="bg-secondary text-center text-white text-sm font-light px-2 py-1 rounded">
+          <p className="bg-secondary text-center text-white text-sm font-thin px-2 py-1 rounded">
             Full Stack Developer
           </p>
         </div>
