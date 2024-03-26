@@ -20,14 +20,12 @@ const About = () => {
       <header>
         <h2 className="pt-16 text-white text-xl font-bold">About me</h2>
       </header>
-
       <section className="leading-6 text-white">
         <p>
           I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media.
           I enjoy
           turning complex problems into simple, beautiful and intuitive designs.
         </p>
-
         <p>
           My job is to build your website so that it is functional and user-friendly but at the same time attractive.
           Moreover, I
@@ -37,14 +35,9 @@ const About = () => {
         </p>
       </section>
 
-
-      {/* <!--
-        - service
-      --> */}
-
       <section className="service">
 
-        <h3 className="h3 service-title">What i'm doing</h3>
+        <h3 className="h3 service-title">What I'm doing</h3>
 
         <ul className="service-list">
 

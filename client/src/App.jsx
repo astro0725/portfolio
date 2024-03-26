@@ -13,7 +13,7 @@ function App() {
           <div>
             <Navbar/>
           </div>
-          <div>
+          <div className='p-16'>
             <section style={{
               scrollBehavior: 'smooth'
             }}>
