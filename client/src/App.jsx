@@ -7,14 +7,16 @@ import Aside from './components/Aside';
 function App() {
   return (
     <>
-      <div className='flex'>
+      <div className='flex items-center'>
         <Aside/>
-        <Navbar/>
-        <section style={{
-          scrollBehavior: 'smooth'
-        }}>
-          <Outlet/>
-        </section>
+        <div>
+          <Navbar/>
+          <section style={{
+            scrollBehavior: 'smooth'
+          }}>
+            <Outlet/>
+          </section>
+        </div>
       </div>
     </>
   );
