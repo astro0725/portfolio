@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 const Aside = () => {
   return (
-    <aside className="bg-base rounded-lg p-6 shadow-md w-1/4">
+    <aside className="fixed bg-base rounded-lg p-6 shadow-md w-1/4 h-screen">
       <div className="flex justify-start items-center gap-4 mb-6">
         <img
           className="rounded-full border-2 border-transparent p-1"
