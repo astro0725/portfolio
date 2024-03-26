@@ -11,11 +11,13 @@ function App() {
         <Aside/>
         <div>
           <Navbar/>
-          <section style={{
-            scrollBehavior: 'smooth'
-          }}>
-            <Outlet/>
-          </section>
+          <div>
+            <section style={{
+              scrollBehavior: 'smooth'
+            }}>
+              <Outlet/>
+            </section>
+          </div>
         </div>
       </div>
     </>
