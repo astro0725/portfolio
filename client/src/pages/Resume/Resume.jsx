@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaBookReader, FaBookmark, FaStar, FaDownload } from "react-icons/fa";
+import { PiCertificateFill } from "react-icons/pi";
 import TimelineItem from './TimelineItem';
 import SkillItem from './SkillItem';
 
@@ -75,6 +76,28 @@ const Resume = () => {
             description="Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et quas molestias exceptur."
           />
         </ol>
+      </div>
+
+      <div>
+        <div className="flex items-center gap-4 mt-6 mb-6">
+          <div className="relative bg-tertiary text-white w-7 h-7 flex justify-center items-center text-sm shadow-sm rounded-lg">
+            <PiCertificateFill />
+          </div>
+          <h3 className="text-white text-lg font-semibold">Certification</h3>
+        </div>
+        <div className="flex items-center justify-center">
+          <div className="relative p-2 mb-5 bg-body rounded-lg shadow-sm z-1">
+            <div className="text-center text-white">
+              <h4 className="text-lg font-medium">Full Stack Development</h4>
+              <iframe 
+                title="Full Stack Development Certification" 
+                src="/UCBCERT.pdf" 
+                height="200"
+                style={{border: "none", maxWidth: "100%", display: "block", marginLeft: "auto", marginRight: "auto"}}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>
