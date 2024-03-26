@@ -92,8 +92,6 @@ const Projects = () => {
         group: groupRepos,
         other: otherRepos,
       });
-
-      // Set filteredProjects based on all fetched repos:
       setFilteredProjects([...personalRepos, ...groupRepos, ...otherRepos]);
     };
 
@@ -148,7 +146,6 @@ const Projects = () => {
       setFilteredProjects(filtered);
     }
   };
-  
 
   return (
     <section className="portfolio h-96 overflow-auto" data-page="portfolio">
