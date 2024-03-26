@@ -8,8 +8,8 @@ function App() {
   return (
     <>
       <Aside/>
-      <div className="main-content">
-       <Navbar/>
+      <div className="relative max-w-max m-auto">
+        <Navbar/>
         <section style={{
           scrollBehavior: "smooth"
         }}><Outlet/></section>
