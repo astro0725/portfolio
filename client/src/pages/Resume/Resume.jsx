@@ -88,7 +88,13 @@ const Resume = () => {
           <p className='text-white font-light text-sm'>Want to have a copy of my resume? Click the button below!</p>
         </div>
         <div className='m-5 flex items-center justify-center'>
-          <button className='bg-secondary font-medium text-sm text-white py-2 px-4 rounded-lg shadow-sm'>Download CV</button>
+          <a
+            href={'/resume.pdf'}
+            download
+            className='bg-secondary font-medium text-sm text-white py-2 px-4 rounded-lg shadow-sm flex items-center justify-center'
+          >
+            Download CV
+          </a>
         </div>
       </div>
     </section>
