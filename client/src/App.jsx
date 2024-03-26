@@ -1,13 +1,21 @@
-import Home from './pages/Home';
 import './assets/css/tailwind.css'
 
-function App() {
+import { Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Aside from "./components/Aside";
 
+function App() {
   return (
     <>
-      <Home />
+      <Aside/>
+      <div className="main-content">
+       <Navbar/>
+        <section style={{
+          scrollBehavior: "smooth"
+        }}><Outlet/></section>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
