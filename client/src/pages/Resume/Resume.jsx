@@ -1,23 +1,38 @@
 import React from 'react';
-import { FaBookReader, FaRegBookmark } from "react-icons/fa";
+import { FaBookReader, FaBookmark, FaStar, FaDownload } from "react-icons/fa";
 import TimelineItem from './TimelineItem';
 import SkillItem from './SkillItem';
 
 const Resume = () => {
   return (
-    <section>
+    <section className='max-h-96 overflow-auto'>
       <header>
-        <h2 className="h2 article-title">Resume</h2>
+        <h2 className="mb-2 text-highlight text-2xl font-bold">Resume</h2>
       </header>
 
-      <div className="timeline">
-        <div className="title-wrapper">
-          <div className="icon-box">
+      <div>
+        <div className="flex items-center gap-4 mb-6">
+          <div className="relative bg-tertiary text-white w-7 h-7 flex justify-center items-center text-sm shadow-sm rounded-lg">
+            <FaStar />
+          </div>
+          <h3 className="text-white text-lg font-semibold">Skills</h3>
+        </div>
+        <ul>
+          <SkillItem title="Web design" value={80} />
+          <SkillItem title="Graphic design" value={70} />
+          <SkillItem title="Branding" value={90} />
+          <SkillItem title="WordPress" value={50} />
+        </ul>
+      </div>
+
+      <div className="mt-5 mb-7">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="relative bg-tertiary text-white w-7 h-7 flex justify-center items-center text-sm shadow-sm rounded-lg">
             <FaBookReader />
           </div>
-          <h3 className="h3">Education</h3>
+          <h3 className="text-white text-lg font-semibold">Education</h3>
         </div>
-        <ol className="timeline-list">
+        <ol className="text-sm">
           <TimelineItem
             title="University school of the arts"
             date="2007 — 2008"
@@ -36,14 +51,14 @@ const Resume = () => {
         </ol>
       </div>
 
-      <div className="timeline">
-        <div className="title-wrapper">
-          <div className="icon-box">
-            <FaRegBookmark />
+      <div className="mb-7">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="relative bg-tertiary text-white w-7 h-7 flex justify-center items-center text-sm shadow-sm rounded-lg">
+            <FaBookmark />
           </div>
-          <h3 className="h3">Experience</h3>
+          <h3 className="text-white text-lg font-semibold">Experience</h3>
         </div>
-        <ol className="timeline-list">
+        <ol className="text-sm">
           <TimelineItem
             title="Creative director"
             date="2015 — Present"
@@ -62,14 +77,19 @@ const Resume = () => {
         </ol>
       </div>
 
-      <div className="skill">
-        <h3 className="h3 skills-title">My skills</h3>
-        <ul className="skills-list content-card">
-          <SkillItem title="Web design" value={80} />
-          <SkillItem title="Graphic design" value={70} />
-          <SkillItem title="Branding" value={90} />
-          <SkillItem title="WordPress" value={50} />
-        </ul>
+      <div>
+        <div className="flex items-center gap-4 mt-6 mb-6">
+          <div className="relative bg-tertiary text-white w-7 h-7 flex justify-center items-center text-sm shadow-sm rounded-lg">
+            <FaDownload />
+          </div>
+          <h3 className="text-white text-lg font-semibold">Download</h3>
+        </div>
+        <div className="flex items-center justify-center">
+          <p className='text-white font-light text-sm'>Want to have a copy of my resume? Click the button below!</p>
+        </div>
+        <div className='m-5 flex items-center justify-center'>
+          <button className='bg-secondary font-medium text-sm text-white py-2 px-4 rounded-lg shadow-sm'>Download CV</button>
+        </div>
       </div>
     </section>
   );
