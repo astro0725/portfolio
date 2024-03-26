@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Aside/>
-      <div className="relative max-w-max m-auto">
+      <div className="relative max-w-max m-auto min-w-3/4 w-3/4">
         <Navbar/>
         <section style={{
           scrollBehavior: "smooth"
