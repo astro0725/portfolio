@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 const Aside = () => {
   return (
-    <aside className="rounded-lg p-15 shadow-1 z-10 mb-15 max-h-112 overflow-hidden transition-2">
+    <aside className="bg-body rounded-lg p-15 shadow-1 z-10 mb-15 max-h-112 overflow-hidden transition-2">
       <div className="relative flex justify-start items-center gap-15">
         <figure className="rounded-full">
           <img
