@@ -1,12 +1,12 @@
-const Service = ({ title, icon, description }) => {
+const Service = ({ title, icon: Icon, description }) => {
   return (
-    <li className="service-item">
-      <div className="service-icon-box">
-        <img src={icon} alt={`${title} icon`} width="40" />
+    <li className="relative p-2 mb-5 bg-body rounded-lg shadow-sm z-1">
+      <div className="flex justify-center items-center text-tertiary">
+      <Icon size={40} />
       </div>
-      <div className="service-content-box">
-        <h4 className="h4 service-item-title">{title}</h4>
-        <p className="service-item-text">{description}</p>
+      <div className="text-center text-white">
+        <h4 className="text-lg font-medium">{title}</h4>
+        <p>{description}</p>
       </div>
     </li>
   );

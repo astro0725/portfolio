@@ -1,13 +1,14 @@
 import Service from "./Service";
+import { MdDesignServices, MdWeb } from "react-icons/md";
 
 const servicesData = [
   {
-    icon: "/images/icon-design.svg",
+    icon: MdDesignServices,
     title: "Web design",
     description: "The most modern and high-quality design made at a professional level."
   },
   {
-    icon: "/images/icon-dev.svg",
+    icon: MdWeb,
     title: "Web development",
     description: "High-quality development of sites at the professional level."
   },
@@ -18,9 +19,9 @@ const About = () => {
   return (
     <article data-page="about">
       <header>
-        <h2 className="pt-16 text-white text-xl font-bold">About me</h2>
+        <h2 className="text-highlight text-xl font-bold">About me</h2>
       </header>
-      <section className="leading-6 text-white">
+      <section className="pb-5 leading-6 text-white">
         <p>
           I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media.
           I enjoy
@@ -35,23 +36,18 @@ const About = () => {
         </p>
       </section>
 
-      <section className="service">
-
-        <h3 className="h3 service-title">What I'm doing</h3>
-
-        <ul className="service-list">
-
+      <section>
+        <h3 className="text-highlight text-xl font-bold mb-2">What I'm doing</h3>
+        <ul className="grid grid-cols-1">
         {servicesData.map((service, index) => (
-              <Service
-                key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-              />
-            ))}
-
+          <Service
+            key={index}
+            icon={service.icon}
+            title={service.title}
+            description={service.description}
+          />
+        ))}
         </ul>
-
       </section>
 
     </article>

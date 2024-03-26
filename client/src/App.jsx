@@ -9,11 +9,11 @@ function App() {
     <>
       <div className='flex items-center'>
         <Aside/>
-        <div className='m-16'>
+        <div className='m-16 bg-base rounded-lg shadow-md'>
           <div>
             <Navbar/>
           </div>
-          <div className='p-16'>
+          <div className='p-5'>
             <section style={{
               scrollBehavior: 'smooth'
             }}>
