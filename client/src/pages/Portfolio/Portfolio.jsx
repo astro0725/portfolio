@@ -1,48 +1,166 @@
-import  { useState, useEffect } from 'react';
-import { FaRegEye } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
 
-const Portfolio = () => {
-  // State to store project data and filtered projects
-  const [projects, setProjects] = useState([]);
+const Projects = () => {
+  const [repos, setRepos] = useState({ personal: [], group: [], other: [] });
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [filteredProjects, setFilteredProjects] = useState([]);
 
-  // State to store the selected category
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const personalRepoNames = ['GamifyLife', 'pixel-pals-2.0'];
+  const groupRepoNames = { 'stevendreed': ['3600'], 'SnapperGee': ['bookworm'] };
 
-  // Load project data from projects.json
-  useEffect(() => {
-    fetch('/projects.json')
-      .then(response => response.json())
-      .then(data => {
-        setProjects(data);
-        setFilteredProjects(data);
-      })
-      .catch(error => console.error('Error loading project data:', error));
-  }, []);
-
-  // Function to handle category filter selection
-  const handleFilterClick = (category) => {
-    setSelectedCategory(category);
-    if (category === 'All') {
-      setFilteredProjects(projects);
-    } else {
-      const filtered = projects.filter(project => project.category === category);
-      setFilteredProjects(filtered);
+  const fetchRepos = async (user, specificRepos = []) => {
+    try {
+      let url = `/api/github/${user}/repos`;
+      if (specificRepos.length > 0) {
+        url += `?repos=${specificRepos.join(',')}`;
+      }
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching repos:', error);
+      return [];
     }
   };
 
-  return (
-    <section className="portfolio" data-page="portfolio">
-      <header>
-        <h2 className="h2 article-title">Portfolio</h2>
-      </header>
+  const fetchReadme = async (fullName) => {
+    try {
+      const [user, repoName] = fullName.split('/');
+      const response = await fetch(`/api/github/${user}/${repoName}/readme`, {
+        headers: { 'Accept': 'application/vnd.github+json' }
+      });
+      if (!response.ok) {
+        console.error(`Failed to fetch README: ${response.statusText}`);
+        return {};
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching README:', error);
+      return {};
+    }
+  };
 
-      {/* Filter buttons */}
-      <ul className="filter-list">
-        {['All', 'Web design', 'Applications', 'Web development'].map(category => (
-          <li className="filter-item" key={category}>
+  const transformImageUrl = (readmeContent, fullName) => {
+    const imageUrlMatch = readmeContent.match(/\!\[.*?\]\((.*?)\)/);
+    const imageUrl = imageUrlMatch ? imageUrlMatch[1] : null;
+    if (imageUrl && !imageUrl.startsWith('http')) {
+      const [user, repoName] = fullName.split('/');
+      return `https://raw.githubusercontent.com/${user}/${repoName}/main/${imageUrl}`;
+    } else {
+      return imageUrl || '/placeholder.png';
+    }
+  };
+
+  useEffect(() => {
+    const initializeRepos = async () => {
+      const myRepos = await fetchRepos('astro0725');
+
+      const groupReposPromises = Object.entries(groupRepoNames).map(async ([user, repos]) => {
+        return Promise.all(repos.map(repo => fetchRepos(user, [repo])));
+      });
+      const groupReposResults = (await Promise.all(groupReposPromises)).flat(2); 
+
+      const allFetchedRepos = [...myRepos, ...groupReposResults];
+
+      const reposWithImages = await Promise.all(allFetchedRepos.map(async (repo) => {
+        const readmeData = await fetchReadme(repo.full_name);
+        if (Object.keys(readmeData).length === 0) {
+          return { ...repo, imageUrl: '/placeholder.png' };
+        }
+
+        const readmeContent = atob(readmeData.content);
+        const fullImageUrl = transformImageUrl(readmeContent, repo.full_name);
+
+        return { ...repo, imageUrl: fullImageUrl };
+      }));
+
+      let personalRepos = [], groupRepos = [], otherRepos = [];
+
+      reposWithImages.forEach(repo => {
+        const repoName = repo.name;
+        if (personalRepoNames.includes(repoName)) {
+          personalRepos.push(repo);
+        } else if (Object.values(groupRepoNames).flat().includes(repoName)) {
+          groupRepos.push(repo);
+        } else {
+          otherRepos.push(repo);
+        }
+      });
+
+      setRepos({
+        personal: personalRepos,
+        group: groupRepos,
+        other: otherRepos,
+      });
+
+      // Set filteredProjects based on all fetched repos:
+      setFilteredProjects([...personalRepos, ...groupRepos, ...otherRepos]);
+    };
+
+    initializeRepos();
+  }, []); 
+
+
+  const renderProjects = (projectsArray) => {
+    return (
+      <div className="flex flex-wrap justify-center gap-4">
+        {projectsArray.map(repo => (
+          <div key={repo.id} className="w-64 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg m-4">
+            <div className="relative">
+              <figure className="overflow-hidden">
+                {repo.imageUrl && (
+                  <img src={repo.imageUrl} alt={`${repo.name} screenshot`} className="w-full h-40 object-cover" />
+                )}
+              </figure>
+              <div className="p-4 text-center">
+                <h3 className="font-bold text-primary text-lg">{repo.name}</h3>
+                <p className="text-gray-300 text-sm">{repo.description}</p>
+                <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="text-highlight">
+                  View on GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  const handleFilterClick = (category) => {
+    setSelectedCategory(category);
+  
+    const allReposWithCategory = [
+      ...repos.personal.map(repo => ({ ...repo, category: 'Personal' })),
+      ...Object.entries(groupRepoNames).flatMap(([user, repoNames]) => {
+        // Ensure that repos.group is defined and is an array before calling .find() and .map()
+        return repoNames.flatMap(repoName => {
+          const foundRepo = repos.group.find(repo => repo.name === repoName && repo.owner.login === user);
+          return foundRepo ? { ...foundRepo, category: 'Group' } : [];
+        });
+      }),
+      ...repos.other.map(repo => ({ ...repo, category: 'Other' })),
+    ];
+  
+    if (category === 'All') {
+      setFilteredProjects(allReposWithCategory);
+    } else {
+      const filtered = allReposWithCategory.filter(repo => repo.category === category);
+      setFilteredProjects(filtered);
+    }
+  };
+  
+
+  return (
+    <section className="portfolio h-96 overflow-auto" data-page="portfolio">
+    <header>
+      <h2 className="text-highlight text-xl font-bold">Portfolio</h2>
+    </header>
+
+    <ul className="flex justify-start items-center gap-6 pl-1 mb-5 text-white">
+        {['All', 'Personal', 'Group', 'Other'].map(category => (
+          <li className="text-white transition-colors duration-300 hover:text-secondary" key={category}>
             <button
-              className={category === selectedCategory ? 'active' : ''}
+              className={category === selectedCategory ? 'text-secondary' : ''}
               onClick={() => handleFilterClick(category)}
               data-filter-btn
             >
@@ -51,33 +169,9 @@ const Portfolio = () => {
           </li>
         ))}
       </ul>
-
-      {/* Portfolio items */}
-      <section className="projects">
-        <ul className="project-list">
-          {filteredProjects.map(project => (
-            <li
-              className="project-item active"
-              data-filter-item
-              data-category={project.category}
-              key={project.id}
-            >
-              <a href="#">
-                <figure className="project-img">
-                  <div className="project-item-icon-box">
-                    <FaRegEye />
-                  </div>
-                  <img src={project.image} alt={project.title} loading="lazy" />
-                </figure>
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-category">{project.category}</p>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </section>
+    {renderProjects(filteredProjects)}
+  </section>
   );
 };
 
-export default Portfolio;
+export default Projects;
