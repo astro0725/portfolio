@@ -21,4 +21,10 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: #9fb9d0;
   }
+  .max-w-calc-100-minus-64 {
+    max-width: calc(100% - 64px);
+  }
+  .w-calc-100-minus-64 {
+    width: calc(100% - 64px);
+  }
 }
