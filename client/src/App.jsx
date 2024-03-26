@@ -9,8 +9,10 @@ function App() {
     <>
       <div className='flex items-center'>
         <Aside/>
-        <div>
-          <Navbar/>
+        <div className='m-16'>
+          <div>
+            <Navbar/>
+          </div>
           <div>
             <section style={{
               scrollBehavior: 'smooth'
