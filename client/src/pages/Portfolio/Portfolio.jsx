@@ -101,25 +101,27 @@ const Projects = () => {
 
   const renderProjects = (projectsArray) => {
     return (
-      <div className='grid grid-cols-2 justify-center gap-4'>
+      <div>
+        <ul className='grid grid-cols-2 space-between justify-center'>
         {projectsArray.map(repo => (
-          <div key={repo.id} className='w-64 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg m-4'>
+          <li key={repo.id} className='relative p-2 m-5 bg-body rounded-lg shadow-sm z-1'>
             <div className='relative'>
-              <figure className='overflow-hidden'>
+              <figure className='overflow-hidden rounded-md'>
                 {repo.imageUrl && (
-                  <img src={repo.imageUrl} alt={`${repo.name} screenshot`} className='w-full h-32 object-cover' />
+                  <img src={repo.imageUrl} alt={`${repo.name} screenshot`} className='w-full h-3/4 object-cover' />
                 )}
               </figure>
-              <div className='p-4 text-center'>
-                <h3 className='font-bold text-primary text-lg'>{repo.name}</h3>
-                <p className='text-gray-300 text-sm'>{repo.description}</p>
-                <a href={repo.html_url} target='_blank' rel='noopener noreferrer' className='text-highlight'>
+              <div className='text-center text-white'>
+                <h4 className='font-medium text-primary text-lg'>{repo.name}</h4>
+                <p className='text-xs'>{repo.description}</p>
+                <a href={repo.html_url} target='_blank' rel='noopener noreferrer' className='text-highlight text-xs'>
                   View on GitHub
                 </a>
               </div>
             </div>
-          </div>
+          </li>
         ))}
+        </ul>
       </div>
     );
   }
