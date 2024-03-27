@@ -544,6 +544,14 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
 .relative {
   position: relative;
 }
@@ -562,6 +570,14 @@ video {
 
 .m-2 {
   margin: 0.5rem;
+}
+
+.m-10 {
+  margin: 2.5rem;
+}
+
+.m-auto {
+  margin: auto;
 }
 
 .my-4 {
@@ -670,6 +686,10 @@ video {
   min-width: fit-content;
 }
 
+.min-w-full {
+  min-width: 100%;
+}
+
 .max-w-96 {
   max-width: 24rem;
 }
@@ -740,6 +760,10 @@ video {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-clip {
+  overflow: clip;
 }
 
 .rounded {
@@ -1018,4 +1042,32 @@ body {
 .hover\:text-tertiary:hover {
   --tw-text-opacity: 1;
   color: rgb(179 135 250 / var(--tw-text-opacity));
+}
+
+@media (min-width: 640px) {
+  .sm\:flex-col {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:flex-col {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:flex-row {
+    flex-direction: row;
+  }
+
+  .xl\:flex-col {
+    flex-direction: column;
+  }
 }

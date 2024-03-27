@@ -1,9 +1,9 @@
-import { GiMailbox} from 'react-icons/gi';
+import { IoMdSend } from "react-icons/io";
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
 
 const Aside = () => {
   return (
-    <aside className='bg-base rounded-lg p-6 shadow-md w-1/4 m-16'>
+    <aside className='bg-base rounded-lg p-6 shadow-md min-w-fit'>
       <div className='flex justify-start items-center gap-4 mb-6'>
         <img
           className='rounded-full border-2 border-transparent p-1'
@@ -24,10 +24,10 @@ const Aside = () => {
       </div>
 
       <div className='my-4'>
-        <div className='h-px bg-body my-4'></div>
+      <div className='h-px bg-body my-4'></div>
         <ul>
           <li className='flex items-center gap-4 mb-4'>
-            <GiMailbox className='text-xl text-primary' />
+            <IoMdSend className='text-xl text-primary' />
             <div>
               <p className='text-highlight text-xs uppercase'>Email</p>
               <a href='mailto:angelica.strong0725@gmail.com' className='text-white'>
