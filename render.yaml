@@ -1,10 +1,10 @@
 services:
 - type: web
-  name: frontend
+  name: angelicastrong
   runtime: static
   buildCommand: npm run net-build
   staticPublishPath: ./client/dist
 - type: web
-  name: backend
+  name: portfoliobackend
   runtime: node
   startCommand: npm start
