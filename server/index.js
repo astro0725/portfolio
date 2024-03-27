@@ -13,7 +13,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
 app.get('/api/github/:user/repos', async (req, res) => {
   const { user } = req.params;
