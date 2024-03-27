@@ -8,8 +8,6 @@ const app = express();
 
 app.use(cors());
 
-app.use(router);
-
 app.get('/api/github/:user/repos', async (req, res) => {
   const { user } = req.params;
   const specificRepos = req.query.repos ? req.query.repos.split(',') : [];
@@ -61,10 +59,10 @@ app.get('/api/github/:user/:repoName/readme', async (req, res) => {
   }
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
