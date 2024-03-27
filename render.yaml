@@ -4,14 +4,8 @@ services:
   env: static
   buildCommand: npm run net-build
   staticPublishPath: ./build
-  github:
-    repo: astro0725/portfolio
-    branch: main
 - type: web
   name: backend
   env: node
   buildCommand: npm run setup
   startCommand: npm start
-  github:
-    repo: astro0725/portfolio
-    branch: main
