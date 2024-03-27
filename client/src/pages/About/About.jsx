@@ -5,12 +5,12 @@ const servicesData = [
   {
     icon: MdDesignServices,
     title: 'Web design',
-    description: 'The most modern and high-quality design made at a professional level.'
+    description: 'Modern and seamless user experiences.'
   },
   {
     icon: MdWeb,
     title: 'Web development',
-    description: 'High-quality development of sites at the professional level.'
+    description: 'Scalable backends for any web needs.'
   },
 ];
 
@@ -23,16 +23,10 @@ const About = () => {
       </header>
       <section className='pb-5 leading-6 text-white'>
         <p>
-          I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media.
-          I enjoy
-          turning complex problems into simple, beautiful and intuitive designs.
+        I am a creative developer with a strong background in team collaboration and on-the-fly problem solving. I have a strong passion for developing seamless user experiences and have keen eye for observing problems. While my knowledge is solely built around coding fundamentals, I am always eager to learn new technologies and further advance my skills.
         </p>
         <p>
-          My job is to build your website so that it is functional and user-friendly but at the same time attractive.
-          Moreover, I
-          add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring
-          across your
-          message and identity in the most creative way. I created web design for many famous brand companies.
+          I aim to build seamless experiences that is visually appealing, functional, and user-friendly. I am always looking for new opportunities to work with other developers and designers to create amazing products.
         </p>
       </section>
 
