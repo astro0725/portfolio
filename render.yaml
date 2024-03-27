@@ -7,4 +7,5 @@ services:
 - type: web
   name: portfoliobackend
   runtime: node
+  buildCommand: cd server && npm install
   startCommand: npm start
