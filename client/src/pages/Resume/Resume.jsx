@@ -35,19 +35,24 @@ const Resume = () => {
         </div>
         <ol className='text-sm'>
           <TimelineItem
-            title='University school of the arts'
-            date='2007 — 2008'
-            description='Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et quas molestias exceptur.'
+            title='University of California —  Berkeley, California'
+            date='2023 — 2024'
+            description='Full Stack Development Certification'
           />
           <TimelineItem
-            title='New york academy of art'
-            date='2006 — 2007'
-            description='Ratione voluptatem sequi nesciunt, facere quisquams facere menda ossimus, omnis voluptas assumenda est omnis.'
+            title='Menlo College —  Atherton, California'
+            date='2019 — 2022'
+            description='Dual Major in International Management and Finance'
           />
           <TimelineItem
-            title='High school of art and design'
-            date='2002 — 2004'
-            description='Duis aute irure dolor in reprehenderit in voluptate, quila voluptas mag odit aut fugit, sed consequuntur magni dolores eos.'
+            title='San Mateo College —  San Mateo, California'
+            date='2018 — 2019'
+            description='Junior College High School Program for General Studies'
+          />
+          <TimelineItem
+            title='Canada College —  Redwood City, California'
+            date='2017 — 2018'
+            description='Junior College High School Program for General Studies'
           />
         </ol>
       </div>
@@ -61,19 +66,19 @@ const Resume = () => {
         </div>
         <ol className='text-sm'>
           <TimelineItem
-            title='Creative director'
-            date='2015 — Present'
-            description='Nemo enim ipsam voluptatem blanditiis praesentium voluptum delenit atque corrupti, quos dolores et qvuas molestias exceptur.'
+            title='Administrative Assistant'
+            date='2018 — Contract'
+            description='Patient charting, marketing, customer support, consulting, transcription, project coordination, manage file systems.'
           />
           <TimelineItem
-            title='Art director'
-            date='2013 — 2015'
-            description='Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et quas molestias exceptur.'
+            title='Tutor'
+            date='2024 — Contract'
+            description='Tutoring in all mathematics (Pre-Algebra, Algebra 1, Algebra 2, Geometry,  Pre-Calculus, Calculus, Calculus 2, Trigonometry, Statistics).'
           />
           <TimelineItem
-            title='Web designer'
-            date='2010 — 2013'
-            description='Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et quas molestias exceptur.'
+            title='Administrative Assistant'
+            date='2024 — Contract'
+            description='Licensing management, web development/management, consultation.'
           />
         </ol>
       </div>
