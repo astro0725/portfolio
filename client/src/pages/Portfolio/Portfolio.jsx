@@ -101,19 +101,19 @@ const Projects = () => {
 
   const renderProjects = (projectsArray) => {
     return (
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className='grid grid-cols-2 justify-center gap-4'>
         {projectsArray.map(repo => (
-          <div key={repo.id} className="w-64 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg m-4">
-            <div className="relative">
-              <figure className="overflow-hidden">
+          <div key={repo.id} className='w-64 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg m-4'>
+            <div className='relative'>
+              <figure className='overflow-hidden'>
                 {repo.imageUrl && (
-                  <img src={repo.imageUrl} alt={`${repo.name} screenshot`} className="w-full h-40 object-cover" />
+                  <img src={repo.imageUrl} alt={`${repo.name} screenshot`} className='w-full h-32 object-cover' />
                 )}
               </figure>
-              <div className="p-4 text-center">
-                <h3 className="font-bold text-primary text-lg">{repo.name}</h3>
-                <p className="text-gray-300 text-sm">{repo.description}</p>
-                <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="text-highlight">
+              <div className='p-4 text-center'>
+                <h3 className='font-bold text-primary text-lg'>{repo.name}</h3>
+                <p className='text-gray-300 text-sm'>{repo.description}</p>
+                <a href={repo.html_url} target='_blank' rel='noopener noreferrer' className='text-highlight'>
                   View on GitHub
                 </a>
               </div>
@@ -147,14 +147,14 @@ const Projects = () => {
   };
 
   return (
-    <section className="portfolio h-96 w-96 overflow-auto" data-page="portfolio">
+    <section data-page='portfolio'>
       <header>
-        <h2 className="text-highlight text-xl font-bold">Portfolio</h2>
+        <h2 className='text-highlight text-xl font-bold'>Portfolio</h2>
       </header>
 
-      <ul className="flex justify-start items-center gap-6 pl-1 mb-5 text-white">
+      <ul className='flex justify-start items-center gap-6 pl-1 mb-5 text-white'>
         {['All', 'Personal', 'Group', 'Other'].map(category => (
-          <li className="text-white transition-colors duration-300 hover:text-secondary" key={category}>
+          <li className='text-white transition-colors duration-300 hover:text-secondary' key={category}>
             <button
               className={category === selectedCategory ? 'text-secondary' : ''}
               onClick={() => handleFilterClick(category)}

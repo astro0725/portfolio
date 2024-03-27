@@ -5,26 +5,26 @@ import App from './App.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
-} from "react-router-dom";
+} from 'react-router-dom';
 import Portfolio from './pages/Portfolio/Portfolio.jsx';
 import Resume from './pages/Resume/Resume.jsx';
 import About from './pages/About/About.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App/>,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <About/>,
       },
       {
-        path: "/resume",
+        path: '/resume',
         element: <Resume/>,
       },
       {
-        path: "/portfolio",
+        path: '/portfolio',
         element: <Portfolio/>,
       }
     ]

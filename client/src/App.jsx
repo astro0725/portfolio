@@ -7,13 +7,13 @@ import Aside from './components/Aside';
 function App() {
   return (
     <>
-      <div className='flex items-center'>
+      <div className='flex justify-center items-center'>
         <Aside/>
         <div className='m-16 bg-base rounded-lg shadow-md'>
           <div>
             <Navbar/>
           </div>
-          <div className='p-5'>
+          <div className='p-5 h-96 max-w-2xl overflow-auto '>
             <section style={{
               scrollBehavior: 'smooth'
             }}>
