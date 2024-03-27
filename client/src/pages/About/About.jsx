@@ -38,7 +38,7 @@ const About = () => {
 
       <section>
         <h3 className='text-highlight text-xl font-bold mb-2'>What I'm doing</h3>
-        <ul className='grid grid-cols-1'>
+        <ul className='grid space-between grid-cols-2'>
         {servicesData.map((service, index) => (
           <Service
             key={index}
