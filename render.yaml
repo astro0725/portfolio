@@ -1,11 +1,10 @@
 services:
 - type: web
   name: frontend
-  env: static
+  runtime: static
   buildCommand: npm run net-build
-  staticPublishPath: ./build
+  staticPublishPath: ./client/dist
 - type: web
   name: backend
-  env: node
-  buildCommand: npm run setup
+  runtime: node
   startCommand: npm start
