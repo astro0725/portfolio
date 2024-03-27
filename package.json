@@ -4,10 +4,10 @@
   "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
   "main": "index.js",
   "scripts": {
-    "start": "node server --ignore client",
+    "start": "cd server && npm run start",
+    "heroku-postbuild": "npm run setup && npm run build",
     "setup": "cd server && npm i && cd ../client && npm i",
-    "build": "cd client && npm run build",
-    "net-build": "npm run setup && npm run build"
+    "build": "cd client && npm run build"
   },
   "keywords": [],
   "author": "",
