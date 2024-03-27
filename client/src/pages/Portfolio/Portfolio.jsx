@@ -130,7 +130,6 @@ const Projects = () => {
     const allReposWithCategory = [
       ...repos.personal.map(repo => ({ ...repo, category: 'Personal' })),
       ...Object.entries(groupRepoNames).flatMap(([user, repoNames]) => {
-        // Ensure that repos.group is defined and is an array before calling .find() and .map()
         return repoNames.flatMap(repoName => {
           const foundRepo = repos.group.find(repo => repo.name === repoName && repo.owner.login === user);
           return foundRepo ? { ...foundRepo, category: 'Group' } : [];
@@ -148,12 +147,12 @@ const Projects = () => {
   };
 
   return (
-    <section className="portfolio h-96 overflow-auto" data-page="portfolio">
-    <header>
-      <h2 className="text-highlight text-xl font-bold">Portfolio</h2>
-    </header>
+    <section className="portfolio h-96 w-96 overflow-auto" data-page="portfolio">
+      <header>
+        <h2 className="text-highlight text-xl font-bold">Portfolio</h2>
+      </header>
 
-    <ul className="flex justify-start items-center gap-6 pl-1 mb-5 text-white">
+      <ul className="flex justify-start items-center gap-6 pl-1 mb-5 text-white">
         {['All', 'Personal', 'Group', 'Other'].map(category => (
           <li className="text-white transition-colors duration-300 hover:text-secondary" key={category}>
             <button
