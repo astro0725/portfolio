@@ -7,7 +7,7 @@ import Aside from './components/Aside';
 function App() {
   return (
     <>
-      <div className='flex m-auto md:flex-col lg:flex-row justify-center items-center'>
+      <div className='flex m-auto flex-col lg:flex-row justify-center items-center'>
         <Aside/>
         <div className='m-16 bg-base rounded-lg shadow-md'>
           <div>
