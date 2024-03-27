@@ -6,14 +6,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-const corsOptions = {
-  origin: ['https://angelicastrong.netlify.app', 'http://localhost:3000'],
-  optionsSuccessStatus: 200 
-};
-
-app.use(cors(corsOptions));
-
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(cors());
 
 app.get('/api/github/:user/repos', async (req, res) => {
   const { user } = req.params;
@@ -65,6 +58,8 @@ app.get('/api/github/:user/:repoName/readme', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
