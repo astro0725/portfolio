@@ -1,12 +1,12 @@
-const SkillItem = ({ title, value }) => {
+const SkillItem = ({ title, icon: Icon, description }) => {
   return (
-    <li className='relative'>
-      <div className='flex items-center gap-1 mb-2'>
-        <h5 className='text-sm font-medium leading-5 text-white'>{title}</h5>
-        <data value={value}>{value}%</data>
+    <li className='relative p-2 m-5 bg-body rounded-lg shadow-sm z-1'>
+      <div className='flex justify-center items-center text-tertiary'>
+      <Icon size={30} />
       </div>
-      <div className='bg-body w-full h-2 rounded-lg'>
-        <div className='bg-primary h-full rounded-lg' style={{ width: `${value}%` }}></div>
+      <div className='text-center text-white'>
+        <h4 className='text-lg font-medium'>{title}</h4>
+        <p className='text-xs'>{description}</p>
       </div>
     </li>
   );

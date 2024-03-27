@@ -1,8 +1,26 @@
 import React from 'react';
-import { FaBookReader, FaBookmark, FaStar, FaDownload } from 'react-icons/fa';
+import { FaBookReader, FaBookmark, FaStar, FaDownload, FaCode, FaHtml5, FaTools} from 'react-icons/fa';
 import { PiCertificateFill } from 'react-icons/pi';
 import TimelineItem from './TimelineItem';
 import SkillItem from './SkillItem';
+
+const skillsData = [
+  {
+    icon: FaCode,
+    title: 'Front End',
+    description: 'HTML, CSS, SASS/SCSS, React, JavaScript, TypeScript, Redux, TailwindCSS'
+  },
+  {
+    icon: FaHtml5,
+    title: 'Back End',
+    description: 'NodeJS, ExpressJS, MySQL, Sequelize, NoSQL, MongoDB, Mongoose, GraphQL'
+  },
+  {
+    icon: FaTools,
+    title: 'Other',
+    description: 'GitHub, Render, Heroku, Netlify, Webpack, Apollo, Websocket, Firebase, AWS'
+  }
+];
 
 const Resume = () => {
   return (
@@ -18,11 +36,15 @@ const Resume = () => {
           </div>
           <h3 className='text-white text-lg font-semibold'>Skills</h3>
         </div>
-        <ul>
-          <SkillItem title='Web design' value={80} />
-          <SkillItem title='Graphic design' value={70} />
-          <SkillItem title='Branding' value={90} />
-          <SkillItem title='WordPress' value={50} />
+        <ul className='grid space-between grid-cols-3'>
+        {skillsData.map((service, index) => (
+          <SkillItem
+            key={index}
+            icon={service.icon}
+            title={service.title}
+            description={service.description}
+          />
+        ))}
         </ul>
       </div>
 
